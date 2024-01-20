@@ -1,0 +1,12 @@
+- google signup feature add
+- username should not repeat add validation for that.
+- verification code should send to the users gmail and resend verification option too.
+- After login also send the message to gmail account.
+- After signup show the users and after following any of the user then only they will get a post to see.
+- In message section also it will be empty then send message option will show the list of the users present.
+- web socket implementation for messages.
+- message should use encryption (use crypto).
+- for state management we should use only redux.
+- use redis for the people who we are going to follow . Get the followed users from redis.
+-
+
