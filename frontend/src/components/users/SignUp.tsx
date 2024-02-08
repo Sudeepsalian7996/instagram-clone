@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import axios from "axios"
 import instalogo from '../../images/insta.webp'
 
 interface UserDetails {
@@ -82,6 +83,7 @@ const SignUp: React.FC = () => {
     }
 
     if(isValid) {
+      apiHandler()
       setDetails({
         email: "",
         password: "",
@@ -90,7 +92,19 @@ const SignUp: React.FC = () => {
       })
     }
   }
-console.log(details)
+
+  const apiHandler = async () => {
+    try {
+      const data = await axios.post(
+        `${import.meta.env.VITE_HOSTNAME}/users/signup`,
+        details
+      );
+      localStorage.setItem("token", data?.data?.token);
+    } catch (err) {
+      console.log("error in api call->", err);
+    }
+  };
+
   return (
     <>
       <div className='flex flex-col justify-center items-center mt-5 mb-20'>
