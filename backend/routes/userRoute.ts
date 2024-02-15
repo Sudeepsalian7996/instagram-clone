@@ -7,4 +7,6 @@ routes.post("/signup",userController.signup)
 
 // routes.post("/signin",userController.signin)
 
+routes.get('/:userId', userController.userInfo)
+
 export default routes

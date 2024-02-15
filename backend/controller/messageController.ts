@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import conversationModel from "../model/conversationModel"
+import messageModel from "../model/messageModel"
 
 const postConversation = async(req: Request, res: Response) => {
     try {
@@ -19,7 +20,6 @@ const postConversation = async(req: Request, res: Response) => {
 const getConversation = async(req: Request, res: Response) => {
     try {
         const userId = req.params.userId
-        console.log(userId)
         const conversation = await conversationModel.find({
             members: {$in : [userId]}
         })
@@ -29,7 +29,33 @@ const getConversation = async(req: Request, res: Response) => {
     }
 }
 
+const postMessage = async(req: Request, res: Response) => {
+    try{
+        const newMessage = new messageModel(req.body)
+        const savedMessage = await newMessage.save()
+        res.status(200).json(savedMessage)
+
+    }catch(err) {
+        res.status(500).json({Error:err})
+    }
+}
+
+const getMessage = async(req: Request, res: Response) => {
+    try {
+        const conversationId = req.params.conversationId
+        const messages = await messageModel.find({
+            conversationId: conversationId
+        })
+        res.status(200).json(messages)
+
+    } catch (error) {
+        res.status(500).json({Error:error})
+    }
+}
+
 export default {
     postConversation,
-    getConversation
+    getConversation,
+    postMessage,
+    getMessage
 }

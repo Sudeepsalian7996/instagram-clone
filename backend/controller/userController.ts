@@ -77,6 +77,18 @@ function createToken(id: string){
 //    }
 // }
 
+//user information retrieval 
+const userInfo = async(req : Request, res: Response) => {
+   try {
+      const userId = req.params.userId
+      const userData = await userCollection.find({_id: userId})
+      res.status(200).json(userData)
+   } catch (error) {
+      res.status(500).json({Error:error})
+   }
+}
+
 export default {
    signup,
+   userInfo
 }
